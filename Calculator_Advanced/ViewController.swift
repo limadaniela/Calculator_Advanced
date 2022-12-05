@@ -39,12 +39,21 @@ class ViewController: UIViewController {
         
         if let numValue = sender.currentTitle {
             if storedValue {
-                displayLabel.text = numValue
+                //to avoid appending "." more than once in decimal place
+                if numValue == "." {
+                    displayLabel.text = "0."
+                } else {
+                    displayLabel.text = numValue
+                }
                 storedValue = false
             } else {
-                displayLabel.text = displayLabel.text! + numValue
+                if numValue == "." && displayLabel.text!.contains(".") {
+                    return
+                }
             }
+            displayLabel.text! += numValue
         }
     }
 }
+
 
