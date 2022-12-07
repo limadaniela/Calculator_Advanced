@@ -26,19 +26,21 @@ class ViewController: UIViewController {
         }
     }
     
+    //global variable that's a new instance of CalculatorLogic struct
+    private var calculator = CalculatorLogic()
+    
+    //when calculation button is pressed, we call the setNumber func which sets the number inside CalculatorLogic to whatever is currently inside the display.
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         //what should happen when a non-number button is pressed
         storedValue = true
         
+        calculator.setNumber(displayValue)
+        
         if let calcMethod = sender.currentTitle {
             
-            let calculator = CalculatorLogic(number: displayValue)
-            
-            guard let result = calculator.calculate(symbol: calcMethod) else {
-                fatalError("The result of the calculation is nil")
+            if let result = calculator.calculate(symbol: calcMethod) {
+                displayValue = result
             }
-            displayValue = result
-            
         }
     }
     
